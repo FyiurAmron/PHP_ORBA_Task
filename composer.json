@@ -1,0 +1,26 @@
+{
+    "name": "orba/random-cat-browser",
+    "description": "Random Cat Browser",
+    "version": "0.1.0",
+    "require": {
+        "symfony/config": "^4.1",
+        "symfony/http-kernel": "^4.1",
+        "symfony/http-foundation": "^4.1",
+        "symfony/routing": "^4.1",
+        "symfony/dependency-injection": "^4.1",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/yaml": "^4.1",
+        "doctrine/common": "^2.9",
+        "symfony/twig-bundle": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "ext-zip": "*",
+        "ext-mbstring": "*",
+        "symfony/phpunit-bridge": "^4.1"
+    }
+}
