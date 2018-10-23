@@ -13,6 +13,8 @@ In current state it shows only one hardcoded photo. Your task will be to unhardc
 
 It's a simple JSON API with only one endpoint: http://randomcatapi.orbalab.com/
 
+It is protected by API key. To be authorized you must pass `api_key` GET parameter to the endpoint. The key that you may use is `5up3rc0nf1d3n714llp455w0rdf0rc47s`.
+
 As a response for request to this API you will get simple JSON object with just one attribute called "url", eg. `{"url": "http://supercats.com/randomkitty123.jpg}`.
 
 The API is heavily loaded, so from time to time (approximately 25% of all requests) it will not respond with HTTP status 200.
@@ -26,8 +28,9 @@ Recruitment task description
 2. Install application locally.
 3. Apply connection to Random Cat API in `\App\Service\RandomCatUrlGetter::getUrl` method.
 4. Frontend should always show correct image. In case of any problems with API, internal `public/images/404.jpg` photo must be shown.
-5. You will get additional points for writing unit tests.
-6. When you're done, create a Pull Request with your changes.
+5. Log all failed API responses and invalid images to a text log file.
+6. Write unit tests to get more points.
+7. When you're done, create a Pull Request with your changes.
 
 Installation and running the application
 ------------
