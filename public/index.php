@@ -2,6 +2,8 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
+umask(0000);
+
 require __DIR__.'/../src/Kernel.php';
 
 $kernel = new \App\Kernel('dev', true);

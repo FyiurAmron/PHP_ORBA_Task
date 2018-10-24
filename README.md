@@ -44,7 +44,7 @@ You need to have Docker installed on your local machine.
 2. Export your user ID by running the following command: `export UID`.
 3. CD to project root and run `docker-compose up`.
 4. Application will be accessible by the following address: `http://localhost:8000/`.
-5. Unit tests can be executed by running the following command: `docker exec -i -t php sh -c "/app/vendor/bin/simple-phpunit /app/src"`.
+5. Unit tests can be executed by running the following command: `docker exec -i -t php_cats sh -c "/app/vendor/bin/simple-phpunit /app/src"`.
 
 ### Using PHP and Composer from your local machine
 
