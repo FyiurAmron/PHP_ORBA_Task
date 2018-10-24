@@ -30,13 +30,28 @@ Recruitment task description
 4. Frontend should always show correct image. In case of any problems with API, internal `public/images/404.jpg` photo must be shown.
 5. Log all failed API responses and invalid images to a text log file.
 6. Write unit tests to get more points.
-7. When you're done, create a Pull Request with your changes.
+7. Make your code SOLID to get even more points.
+8. When you're done, create a Pull Request with your changes.
 
 Installation and running the application
-------------
+----------------------------------------
+
+### Using Docker
+
+You need to have Docker installed on your local machine.
 
 1. Clone your forked repository (master branch) locally.
-2. Run `composer install`.
-3. Set-up PHP built-in server by running the following command from project root: `php -S localhost:8000 -t public`
-4. Application will be visible on the following address: `http://localhost:8000/`
-5. Unit tests can be run by running the following command from project root: `vendor/bin/simple-phpunit src`
+2. Export your user ID by running the following command: `export UID`.
+3. CD to project root and run `docker-compose up`.
+4. Application will be accessible by the following address: `http://localhost:8000/`.
+5. Unit tests can be executed by running the following command: `docker exec -i -t php sh -c "/app/vendor/bin/simple-phpunit /app/src"`.
+
+### Using PHP and Composer from your local machine
+
+You need to have PHP 7.1 and Composer installed on your local machine.
+
+1. Clone your forked repository (master branch) locally.
+2. CD to project root and run `composer install`.
+3. Set-up PHP built-in server by running the following command: `php -S localhost:8000 -t public`.
+4. Application will be accessible by the following address: `http://localhost:8000/`.
+5. Unit tests can be executed by running the following command: `vendor/bin/simple-phpunit src`.
