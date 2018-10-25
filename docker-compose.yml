@@ -1,6 +1,5 @@
 php:
   build: ./.docker/php/
-  user: "${UID}"
   command: bash -c "composer install -d /app && php -S 0.0.0.0:8000 -t /app/public"
   ports:
   - "8000:8000"
