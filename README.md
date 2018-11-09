@@ -15,7 +15,7 @@ It's a simple JSON API with only one endpoint: http://randomcatapi.orbalab.com/
 
 It is protected by API key. To be authorized you must pass `api_key` GET parameter to the endpoint. The key that you may use is `5up3rc0nf1d3n714llp455w0rdf0rc47s`.
 
-As a response for request to this API you will get simple JSON object with just one attribute called "url", eg. `{"url": "http://supercats.com/randomkitty123.jpg}`.
+As a response for request to this API you will get simple JSON object with just one attribute called "url", eg. `{"url": "http://supercats.com/randomkitty123.jpg"}`.
 
 The API is heavily loaded, so from time to time (approximately 25% of all requests) it will not respond with HTTP status 200.
 
@@ -36,14 +36,17 @@ Recruitment task description
 Installation and running the application
 ----------------------------------------
 
+You can install application on your local environment or using Docker.
+
 ### Using Docker
 
-You need to have Docker installed on your local machine.
+You need to have Docker and Docker-Compose installed on your local machine.
 
 1. Clone your forked repository (master branch) locally.
 2. CD to project root and run `docker-compose up`.
 3. Application will be accessible by the following address: `http://localhost:8000/`.
 4. Unit tests can be executed by running the following command: `docker exec -i -t php_cats sh -c "/app/vendor/bin/simple-phpunit /app/src"`.
+5. Composer can be executed by running the following command: `docker exec -i -t php_cats sh -c "cd /app && composer`.
 
 ### Using PHP and Composer from your local machine
 
