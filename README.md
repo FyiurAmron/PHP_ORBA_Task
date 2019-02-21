@@ -47,7 +47,7 @@ You need to have Docker and Docker-Compose installed on your local machine.
 3. Application will be accessible by the following address: `http://localhost:8000/`.
 4. Unit tests can be executed by running the following command: `docker exec -i -t <CONTAINER_NAME> sh -c "/app/vendor/bin/simple-phpunit /app/src"`.
 5. Composer can be executed by running the following command: `docker exec -i -t <CONTAINER_NAME> sh -c "cd /app && composer"`.
-6. <CONTAINER_NAME>` can be checked by running the following command: `docker ps`. It will be something like `orbamrandomcats_php_1_ed01e2011bb6`.
+6. `<CONTAINER_NAME>` can be checked by running the following command: `docker ps`. It will be something like `orbamrandomcats_php_1_ed01e2011bb6`.
 
 ### Using PHP and Composer from your local machine
 
