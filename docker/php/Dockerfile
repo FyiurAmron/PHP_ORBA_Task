@@ -3,7 +3,7 @@ FROM php:7.1
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-RUN php composer-setup.php --install-dir=bin --version=1.7.2 --filename composer
-RUN php -r "unlink('composer-setup.php');"
+RUN php -r "copy('https://getcomposer.org/download/1.8.4/composer.phar', 'composer.phar');"
+RUN php -r "if (hash_file('SHA256', 'composer.phar') === '1722826c8fbeaf2d6cdd31c9c9af38694d6383a0f2bf476fe6bbd30939de058a') { echo 'Composer.phar verified'; } else { echo 'Composer.phar corrupted'; unlink('composer.phar'); } echo PHP_EOL;"
+RUN chmod a+x composer.phar
+RUN mv composer.phar /usr/local/bin/composer
