@@ -1,48 +1,66 @@
 <?php
+declare(strict_types=1);
 
 namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-
-$loader = require __DIR__.'/../vendor/autoload.php';
-// auto-load annotations
-AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    public function registerBundles()
+    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
+    public function registerBundles(): iterable
     {
-        return [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle()
-        ];
+        $contents = require $this->getProjectDir().'/config/bundles.php';
+        foreach ($contents as $class => $envs) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+                yield new $class();
+            }
+        }
     }
 
-    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
+    public function getProjectDir(): string
     {
-        $loader->load(__DIR__ . '/../config/framework.yaml');
-        $loader->load(__DIR__ . '/../config/services.yaml');
+        return \dirname(__DIR__);
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes)
+    /**
+     * @param ContainerBuilder $container
+     * @param LoaderInterface $loader
+     *
+     * @throws \Exception
+     */
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $routes->import(__DIR__.'/../src/Controller/', '/', 'annotation');
+        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
+        $container->setParameter('container.dumper.inline_class_loader', \PHP_VERSION_ID < 70400 || !ini_get('opcache.preload'));
+        $container->setParameter('container.dumper.inline_factories', true);
+        $confDir = $this->getProjectDir().'/config';
+
+        $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{packages}/'.$this->environment.'/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
 
-    public function getCacheDir()
+    /**
+     * @param RouteCollectionBuilder $routes
+     *
+     * @throws \Symfony\Component\Config\Exception\LoaderLoadException
+     */
+    protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        return __DIR__.'/../var/cache/' . $this->getEnvironment();
-    }
+        $confDir = $this->getProjectDir().'/config';
 
-    public function getLogDir()
-    {
-        return __DIR__.'/../var/log';
+        $routes->import($confDir.'/{routes}/'.$this->environment.'/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 }

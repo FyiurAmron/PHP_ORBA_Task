@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -11,6 +12,10 @@ class CatsController extends AbstractController
 {
     /**
      * @Route("/")
+     *
+     * @param RandomCatUrlGetter $randomCatUrlGetter
+     *
+     * @return Response
      */
     public function randomCat(RandomCatUrlGetter $randomCatUrlGetter): Response
     {
